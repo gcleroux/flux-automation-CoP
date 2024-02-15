@@ -24,6 +24,6 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: ghcr.io/gcleroux/super-cool-webapp:v1.0.0 # {"$imagepolicy": "flux-system:super-cool-webapp"}
+          image: ghcr.io/gcleroux/super-cool-webapp:1.0.0 # {"$imagepolicy": "flux-system:super-cool-webapp"}
           ports:
             - containerPort: 8080
