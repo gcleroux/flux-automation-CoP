@@ -26,8 +26,8 @@ func catHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	flag.IntVar(&width, "width", 640, "image width")
-	flag.IntVar(&height, "height", 480, "image height")
+	flag.IntVar(&width, "width", 1280, "image width")
+	flag.IntVar(&height, "height", 720, "image height")
 	flag.IntVar(&port, "port", 8080, "webapp port")
 
 	flag.Parse()
