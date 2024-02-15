@@ -4,3 +4,4 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - image-automation.yaml
+  - discord-automation.yaml

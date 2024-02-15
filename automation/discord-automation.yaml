@@ -1,0 +1,66 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: discord-updates-webhook
+  namespace: flux-system
+stringData:
+  address: https://discord.com/api/webhooks/1207689573711487028/cm1QVFjLwUVQKmTywUrjVJwgBiwamVHo1oho54rvpSj6tXncDzK7DDQF6fP_BTJhj7NS
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: discord-events-webhook
+  namespace: flux-system
+stringData:
+  address: https://discord.com/api/webhooks/1207692036564848650/AjWakHWuxteURRjzRvEJDuTRxufgXga66W_3V4udV3Oa7ihUI5U-VaZKP799Ctr6ODYp
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: discord-events
+  namespace: flux-system
+spec:
+  type: discord
+  secretRef:
+    name: discord-events-webhook
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: discord-updates
+  namespace: flux-system
+spec:
+  type: discord
+  secretRef:
+    name: discord-updates-webhook
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: flux-events
+  namespace: flux-system
+spec:
+  summary: kind-cluster
+  providerRef:
+    name: discord-events
+  eventSeverity: info
+  eventSources:
+    - kind: GitRepository
+      name: "*"
+    - kind: Kustomization
+      name: "*"
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: flux-updates
+  namespace: flux-system
+spec:
+  summary: kind-cluster
+  providerRef:
+    name: discord-updates
+  eventSeverity: info
+  eventSources:
+    - kind: ImageUpdateAutomation
+      name: "*"
